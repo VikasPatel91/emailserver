@@ -4,13 +4,25 @@ import userRoute from "./Router/router.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import "./db.js";
-dotenv.config();
-const corsOptions = {
-  origin: "http://localhost:5173",
-  credentials: true,
-};
 const app = express();
-app.use(cors(corsOptions));
+dotenv.config();
+const allowedOrigins = [
+  "https://emailclient-lac.vercel.app", // Production front-end
+  "http://localhost:5173", // Development front-end
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
 app.use(express.json());
 app.use(cookieParser());
 app.get("/", (req, res) => {
