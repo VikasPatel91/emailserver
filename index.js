@@ -7,8 +7,8 @@ import "./db.js";
 const app = express();
 dotenv.config();
 const allowedOrigins = [
-  "https://emailclient-lac.vercel.app", // Production front-end
-  "http://localhost:5173", // Development front-end
+  "https://emailclient-lac.vercel.app", 
+  "http://localhost:5173",
 ];
 
 app.use(
